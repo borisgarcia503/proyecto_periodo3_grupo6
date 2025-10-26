@@ -1,0 +1,21 @@
+{% extends "core/index.html" %}
+
+{% block titulo %}Detalle paciente{% endblock %}
+
+{% block contenido %}
+  <h1>Detalle del paciente</h1>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ paciente.nombre }} {{ paciente.apellido }}</h5>
+      <p class="card-text"><strong>Email:</strong> {{ paciente.email }}</p>
+      <p class="card-text"><strong>Teléfono:</strong> {{ paciente.telefono }}</p>
+    </div>
+    <div class="card-footer d-flex gap-2">
+      <a href="{% url 'gestion:paciente_update' paciente.id %}" class="btn btn-primary">Editar</a>
+      <a href="{% url 'gestion:paciente_delete' paciente.id %}" class="btn btn-danger">Eliminar</a>
+      <a href="{% url 'gestion:paciente_list' %}" class="btn btn-secondary">Volver</a>
+    </div>
+  </div>
+
+{% endblock %}

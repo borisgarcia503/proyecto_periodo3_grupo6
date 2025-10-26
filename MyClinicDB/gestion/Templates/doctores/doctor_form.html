@@ -1,0 +1,37 @@
+{% extends "core/index.html" %}
+{% block titulo %}
+{% if form.instance.pk %} 
+   Editar doctor
+   {% else %}
+   Registrar nuevo doctor
+{%endif%}
+{% endblock %}
+
+
+
+{% block contenido %}
+   <h1 class="text-center">Formulario de doctores</h1>
+
+   <form method="post">
+      {% csrf_token %}
+      <div class="card shadow-lg">
+         <div class="card-header">
+            <h2 class="card-title text-center">
+             {% if form.instance.pk %} 
+             Editar doctor
+             {% else %}
+             Registrar nuevo doctor
+             {%endif%}
+            </h2>
+         </div>
+         <div class="card-body">
+            {{ form.as_p }}
+         </div>
+         <div class="card-footer d-flex justify-content-evenly">
+            <button type="submit" class="btn btn-primary">Guardar</button>
+            <a href="{% url 'gestion:doctor_list' %}" class="btn btn-danger">Cancelar</a>
+         </div>
+      </div>
+   </form>
+
+{% endblock %}

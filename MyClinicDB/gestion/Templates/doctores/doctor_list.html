@@ -1,0 +1,42 @@
+{%extends "core/index.html"%}
+
+  {% block titulo%} listado de doctores{% endblock %}
+
+  {% block contenido %}
+    <h1 class="text center">Listado de doctores </h1>
+    <a href='{%url "gestion:doctor_create"%}' class="btn btn-outline-success">Nuevo doctor</a>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+        <th scope="col">apellido</th>
+        <th scope="col">email</th>
+        <th scope="col">especialidad</th>
+        <th scope="col">telefono</th>
+        <th scope="col">Acciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {%for d in doctores%}
+    <tr>
+      <th scope="row">{{d.id}}</th>
+      <td>{{d.nombre}}</td>
+      <td>{{d.apellido}}</td>
+        <td>{{d.email}}</td>
+        <td>{{d.especialidad}}</td>
+        <td>{{d.telefono}}</td>
+        
+        <td>
+          <a href='{%url "gestion:doctor_update" d.id%}' class="btn btn-outline-primary">Editar</a>
+          <a href='{%url "gestion:doctor_delete" d.id%}' class="btn btn-outline-danger">Eliminar</a>
+          <a href='{%url "gestion:doctor_detail" d.id%}' class="btn btn-outline-info">Ver detalle</a>
+        </td>
+     
+    </tr>
+    {%endfor%}
+    
+  </tbody>
+</table>
+    {% endblock %}

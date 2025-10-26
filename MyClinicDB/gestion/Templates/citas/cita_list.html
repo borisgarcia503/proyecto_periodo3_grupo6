@@ -1,0 +1,41 @@
+{%extends "core/index.html"%}
+
+  {% block titulo%} listado de citas{% endblock %}
+
+  {% block contenido %}
+    <h1 class="text center">Listado de citas </h1>
+    <a href='{%url "gestion:cita_create"%}' class="btn btn-outline-success">Nueva cita</a>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">paciente</th>
+        <th scope="col">doctor</th>
+        <th scope="col">fecha_hora</th>
+        <th scope="col">motivo</th>
+        <th scope="col">Acciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {%for c in cita%}
+    <tr>
+      <th scope="row">{{c.id}}</th>
+      <td>{{c.paciente}}</td>
+      <td>{{c.doctor}}</td>
+        <td>{{c.fecha_hora}}</td>
+        <td>{{c.motivo}}</td>
+   
+        
+        <td>
+          <a href='{%url "gestion:cita_update" c.id%}' class="btn btn-outline-primary">Editar</a>
+          <a href='{%url "gestion:cita_delete" c.id%}' class="btn btn-outline-danger">Eliminar</a>
+          <a href='{%url "gestion:cita_detail" c.id%}' class="btn btn-outline-info">Ver detalle</a>
+        </td>
+     
+    </tr>
+    {%endfor%}
+    
+  </tbody>
+</table>
+    {% endblock %}

@@ -1,0 +1,39 @@
+{%extends "core/index.html"%}
+
+  {% block titulo%} listado de pacientes{% endblock %}
+
+  {% block contenido %}
+    <h1 class="text center">Listado de pacientes </h1>
+    <a href='{%url "gestion:paciente_create"%}' class="btn btn-outline-success">Nuevo paciente</a>
+  <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Nombre</th>
+        <th scope="col">apellido</th>
+        <th scope="col">email</th>
+        <th scope="col">telefono</th>
+        <th scope="col">Acciones</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    {%for p in pacientes%}
+    <tr>
+      <th scope="row">{{p.id}}</th>
+      <td>{{p.Nombre}}</td>
+      <td>{{p.apellido}}</td>
+        <td>{{p.email}}</td>
+        <td>{{p.telefono}}</td>
+        <td>
+          <a href='{%url "gestion:paciente_update" p.id%}' class="btn btn-outline-primary">Editar</a>
+          <a href='{%url "gestion:paciente_delete" p.id%}' class="btn btn-outline-danger">Eliminar</a>
+          <a href='{%url "gestion:paciente_detail" p.id%}' class="btn btn-outline-info">Ver detalle</a>
+        </td>
+     
+    </tr>
+    {%endfor%}
+    
+  </tbody>
+</table>
+    {% endblock %}
