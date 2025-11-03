@@ -1,0 +1,57 @@
+
+{% extends 'core/index.html' %}
+{% load static %}
+
+        {% block titulo %} Principal {% endblock %}
+    
+        {% block contenido %}
+<div class="container py-5">
+    <!-- Título de bienvenida -->
+    <h2 class="text-center mb-5">Bienvenido al Sistema de Gestión Clínica</h2>
+    
+    <!-- Contenedor flex para las tarjetas -->
+    <div class="d-flex justify-content-center gap-4 flex-wrap">
+        <!-- Tarjeta de Pacientes -->
+        <div class="card dashboard-card" style="width: 18rem;">
+            <div class="card-body text-center">
+                <div class="card-icon mb-3">
+                   <img src="{% static 'core/img/paciente.png' %}" alt="Icono Pacientes">
+                </div>
+                <h5 class="card-title">Pacientes</h5>
+                <p class="card-text">Gestione el registro y seguimiento de pacientes de la clínica.</p>
+                <a href="{% url 'gestion:paciente_list' %}" class="btn btn-primary w-100">
+                    <i class="fas fa-list-ul me-2"></i>Ver listado de pacientes
+                </a>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Doctores -->
+        <div class="card dashboard-card" style="width: 18rem;">
+            <div class="card-body text-center">
+                <div class="card-icon mb-3">
+                    <img src="{% static 'core/img/doctor.png' %}" alt="Icono Doctores">
+                </div>
+                <h5 class="card-title">Doctores</h5>
+                <p class="card-text">Administre el personal médico y sus especialidades.</p>
+                <a href="{% url 'gestion:doctor_list' %}" class="btn btn-primary w-100">
+                    <i class="fas fa-list-ul me-2"></i>Ver listado de doctores
+                </a>
+            </div>
+        </div>
+
+        <!-- Tarjeta de Citas -->
+        <div class="card dashboard-card" style="width: 18rem;">
+            <div class="card-body text-center">
+                <div class="card-icon mb-3">
+                    <img src="{% static 'core/img/cita.png' %}" alt="Icono Citas">
+                </div>
+                <h5 class="card-title">Citas</h5>
+                <p class="card-text">Gestione las citas médicas y su programación.</p>
+                <a href="{% url 'gestion:cita_list' %}" class="btn btn-primary w-100">
+                    <i class="fas fa-list-ul me-2"></i>Ver listado de citas
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

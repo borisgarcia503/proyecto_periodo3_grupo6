@@ -21,14 +21,19 @@
     {%for p in pacientes%}
     <tr>
       <th scope="row">{{p.id}}</th>
-      <td>{{p.Nombre}}</td>
+      <td>{{p.nombre}}</td>
       <td>{{p.apellido}}</td>
         <td>{{p.email}}</td>
         <td>{{p.telefono}}</td>
         <td>
+          {%if user.name == "admin"%}
+
           <a href='{%url "gestion:paciente_update" p.id%}' class="btn btn-outline-primary">Editar</a>
           <a href='{%url "gestion:paciente_delete" p.id%}' class="btn btn-outline-danger">Eliminar</a>
           <a href='{%url "gestion:paciente_detail" p.id%}' class="btn btn-outline-info">Ver detalle</a>
+          {%else%}
+          <a href='{%url "gestion:paciente_detail" p.id%}' class="btn btn-outline-info">Ver detalle</a>
+          {%endif%}
         </td>
      
     </tr>

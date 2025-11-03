@@ -8,30 +8,48 @@
         {% block titulo%} Consultas {% endblock %}
     </title>
   <link rel="stylesheet" href="{% static 'core/css/bootstrap.min.css' %}"/>
+  <link rel="stylesheet" href="{% static 'core/css/site.css' %}"/>
   </head>
   <body>
     <header>
-        <nav class="navbar navbar-expand-lg bg-dark border-bottom border-body" data-bs-theme="dark">
+        <nav class="navbar navbar-expand-lg custom-navbar" data-bs-theme="dark">
+          
           
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">♥Consulta</a>
+    <a class="navbar-brand" href="{%url 'principal'%}">♥Consultas Salvador</a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Pacientes</a>
+          <a class="nav-link {% if request.resolver_match.namespace == 'gestion' and request.resolver_match.url_name == 'paciente_list' %}active{% endif %}" aria-current="page" href="{% url 'gestion:paciente_list' %}">Pacientes</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Doctores</a>
+          <a class="nav-link {% if request.resolver_match.namespace == 'gestion' and request.resolver_match.url_name == 'doctor_list' %}active{% endif %}" href="{% url 'gestion:doctor_list' %}">Doctores</a>
         </li>
 
-          <li class="nav-item">
-          <a class="nav-link" href="#">Citas</a>
+        <li class="nav-item">
+          <a class="nav-link {% if request.resolver_match.namespace == 'gestion' and request.resolver_match.url_name == 'cita_list' %}active{% endif %}" href="{% url 'gestion:cita_list' %}">Citas</a>
         </li>
+
 
       </ul>
+      
+      {%if user.is_authenticated%}
+      <span class="navbar-text me-3">
+        <form method="post" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-light">Cerrar Sesión</button>
+        </form>
+      </span>
+      {%else%}
+      <span class="navbar-text me-3">
+        <a href="{% url 'login' %}" class="btn btn-outline-light">Iniciar Sesión</a>
+      {%endif%}
+
+
+
       {%comment %}<form class="d-flex" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search"/>
         <button class="btn btn-outline-success" type="submit">Search</button>
