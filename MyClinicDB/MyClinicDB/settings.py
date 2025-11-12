@@ -20,10 +20,10 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-d9k3^4*w=nu7d*f0y2)0llpm&2(f)=wlb8!*g@ov-587%dp(f_'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG')
 
 ALLOWED_HOSTS = []
 
@@ -43,6 +43,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -80,7 +81,9 @@ WSGI_APPLICATION = 'MyClinicDB.wsgi.application'
 # mssql backend and fall back to sqlite3 when it's not available so the project
 # can run without extra system-level dependencies.
 import importlib
-
+import os
+from dotenv import load_dotenv
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 _use_mssql = False
 try:
     importlib.import_module('mssql')
@@ -105,8 +108,13 @@ else:
     # Fallback to sqlite3 for development without SQL Server drivers
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
+            'ENGINE': os.getenv('DB_ENGINE', 'django.db.backends.postgresql'), 
+            'USER': os.getenv('DB_USER'),  
+            'PASSWORD': os.getenv('DB_PASSWORD'),
+            'HOST': os.getenv('DB_HOST'),
+            'PORT': os.getenv('DB_PORT'),
+
+            'NAME': os.getenv('DB_NAME'),
         }
     }
 
@@ -146,6 +154,8 @@ USE_TZ = True
 
 # Serve project-level static/ directory during development
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage',
 STATICFILES_DIRS = [
     BASE_DIR / "static",
 ]
