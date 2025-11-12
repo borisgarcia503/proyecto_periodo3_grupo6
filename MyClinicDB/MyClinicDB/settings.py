@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
+from dotenv import load_dotenv
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -81,8 +83,7 @@ WSGI_APPLICATION = 'MyClinicDB.wsgi.application'
 # mssql backend and fall back to sqlite3 when it's not available so the project
 # can run without extra system-level dependencies.
 import importlib
-import os
-from dotenv import load_dotenv
+
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 _use_mssql = False
 try:
