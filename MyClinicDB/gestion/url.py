@@ -7,6 +7,7 @@ from .views import CitaListView, CitaCreateView, citaDeleteView, citaUpdateView,
 
 app_name = 'gestion'
 
+
 urlpatterns = [
     path('pacientes/', PacienteListView.as_view(), name='paciente_list'),
     path('pacientes/crear/', PacienteCreateView.as_view(), name='paciente_create'),
