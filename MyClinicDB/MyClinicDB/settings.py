@@ -10,18 +10,14 @@ from dotenv import load_dotenv
 BASE_DIR = Path(__file__).resolve().parent.parent
 load_dotenv(os.path.join(BASE_DIR, '.env'))
 
-# =====================
 # CONFIGURACIÓN BÁSICA
-# =====================
 
 SECRET_KEY = os.getenv('SECRET_KEY', 'default_secret_key')
 DEBUG = os.getenv('DEBUG', 'False').lower() == 'true'
 
 ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1').split(',')
 
-# =====================
 # APLICACIONES
-# =====================
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -34,9 +30,7 @@ INSTALLED_APPS = [
     'core',
 ]
 
-# =====================
 # MIDDLEWARE
-# =====================
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,9 +63,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'MyClinicDB.wsgi.application'
 
-# =====================
+
 # BASE DE DATOS
-# =====================
 
 DATABASES = {
     'default': {
@@ -84,9 +77,8 @@ DATABASES = {
     }
 }
 
-# =====================
 # VALIDADORES
-# =====================
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
@@ -95,35 +87,30 @@ AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# =====================
+
 # LOCALIZACIÓN
-# =====================
 
 LANGUAGE_CODE = 'es-sv'
 TIME_ZONE = 'America/El_Salvador'
 USE_I18N = True
 USE_TZ = True
 
-# =====================
 # ARCHIVOS ESTÁTICOS
-# =====================
+
 
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [BASE_DIR / 'static']
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-# =====================
+
 # AUTENTICACIÓN
-# =====================
 
 LOGIN_URL = '/core/login/'
 LOGIN_REDIRECT_URL = '/core/principal/'
 LOGOUT_REDIRECT_URL = '/core/login/'
 
-# =====================
 # SEGURIDAD PARA RENDER
-# =====================
 
 if not DEBUG:
     CSRF_TRUSTED_ORIGINS = [

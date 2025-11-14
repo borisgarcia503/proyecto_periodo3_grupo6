@@ -26,11 +26,11 @@
         <td>{{p.email}}</td>
         <td>{{p.telefono}}</td>
         <td>
-          {%if user.name == "admin"%}
+          {% if user.groups.filter(name="Administrador").exists %}
+    <a href="{% url 'gestion:paciente_update' p.id %}" class="btn btn-outline-primary">Editar</a>
+    <a href="{% url 'gestion:paciente_delete' p.id %}" class="btn btn-outline-danger">Eliminar</a>
+    <a href="{% url 'gestion:paciente_detail' p.id %}" class="btn btn-outline-info">Ver detalle</a>
 
-          <a href='{%url "gestion:paciente_update" p.id%}' class="btn btn-outline-primary">Editar</a>
-          <a href='{%url "gestion:paciente_delete" p.id%}' class="btn btn-outline-danger">Eliminar</a>
-          <a href='{%url "gestion:paciente_detail" p.id%}' class="btn btn-outline-info">Ver detalle</a>
           {%else%}
           <a href='{%url "gestion:paciente_detail" p.id%}' class="btn btn-outline-info">Ver detalle</a>
           {%endif%}

@@ -1,0 +1,21 @@
+{% extends "core/index.html" %}
+
+{% block titulo %}Detalle Doctor{% endblock %}
+
+{% block contenido %}
+  <h1>Detalle del doctor</h1>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <h5 class="card-title">{{ doctor.nombre }} {{ doctor.apellido }}</h5>
+      <p class="card-text"><strong>Email:</strong> {{ doctor.email }}</p>
+      <p class="card-text"><strong>Teléfono:</strong> {{ doctor.telefono }}</p>
+        <p class="card-text"><strong>Especialidad:</strong> {{ doctor.especialidad }}</p>
+    </div>
+    <div class="card-footer d-flex gap-2">
+      
+      <a href="{% url 'gestion:doctor_list' %}" class="btn btn-secondary">Volver</a>
+    </div>
+  </div>
+
+{% endblock %}

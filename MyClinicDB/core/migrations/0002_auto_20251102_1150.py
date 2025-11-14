@@ -3,28 +3,35 @@
 from django.db import migrations
 
 def create_permissions_and_users(apps, schema_editor):
-    # This function is intentionally left blank as a placeholder for future migration logic.
-    from django.contrib.auth.models import User, Permission, Group
-    # Future logic to create permissions and users can be added here.
-    from django.contrib.contenttypes.models import ContentType
-    # Example: content_type = ContentType.objects.get_for_model(YourModel)
+    Group = apps.get_model('auth', 'Group')
+    Permission = apps.get_model('auth', 'Permission')
+    User = apps.get_model('auth', 'User')
 
+    # Crear grupos
     roles = ['Paciente', 'Doctor', 'Administrador']
     grupos = {}
+
     for role in roles:
         grupo, created = Group.objects.get_or_create(name=role)
         grupos[role] = grupo
 
+    # Asignar permisos
+    # Administrador → todos los permisos
     grupos['Administrador'].permissions.set(Permission.objects.all())
-    # Additional permission assignments can be added here.
-    
-    grupos['paciente'].permissions.set(
-        Permission.objects.get(codename='view_cita')),
 
-    grupos['doctor'].permissions.set(
-        Permission.objects.get(codename='view_cita, change_cita')),
+    # Paciente → solo ver citas
+    permisos_paciente = Permission.objects.filter(
+        codename='view_cita'
+    )
+    grupos['Paciente'].permissions.set(permisos_paciente)
 
-#crear usuarios de prueba
+    # Doctor → ver y cambiar citas
+    permisos_doctor = Permission.objects.filter(
+        codename__in=['view_cita', 'change_cita']
+    )
+    grupos['Doctor'].permissions.set(permisos_doctor)
+
+    # Crear usuarios de prueba
     admin_user = User.objects.create_user(username='admin', password='adminpass')
     admin_user.groups.add(grupos['Administrador'])
     admin_user.is_staff = True
@@ -33,13 +40,9 @@ def create_permissions_and_users(apps, schema_editor):
 
     doctor_user = User.objects.create_user(username='doctor1', password='doctorpass')
     doctor_user.groups.add(grupos['Doctor'])
-    doctor_user.save()
 
     paciente_user = User.objects.create_user(username='paciente1', password='pacientepass')
     paciente_user.groups.add(grupos['Paciente'])
-    paciente_user.save()
-
-
 
 
 class Migration(migrations.Migration):
@@ -49,4 +52,5 @@ class Migration(migrations.Migration):
     ]
 
     operations = [
+        migrations.RunPython(create_permissions_and_users),
     ]

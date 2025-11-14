@@ -1,0 +1,21 @@
+{% extends "core/index.html" %}
+
+{% block titulo %}Detalle cita{% endblock %}
+
+{% block contenido %}
+  <h1>Detalle de la cita</h1>
+
+  <div class="card mb-3">
+    <div class="card-body">
+      <p class="card-text"><strong>paciente</strong> {{ cita.paciente}}</p>
+        <p class="card-text"><strong>Doctor:</strong> {{ cita.doctor }}</p>
+      <p class="card-text"><strong>Fecha y hora:</strong> {{ cita.fecha_hora }}</p>
+      <p class="card-text"><strong>Motivo:</strong> {{ cita.motivo }}</p>
+    </div>
+    <div class="card-footer d-flex gap-2">
+     
+      <a href="{% url 'gestion:cita_list' %}" class="btn btn-secondary">Volver</a>
+    </div>
+  </div>
+
+{% endblock %}
