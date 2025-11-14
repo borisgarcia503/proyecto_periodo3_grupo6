@@ -4,7 +4,9 @@
 
   {% block contenido %}
     <h1 class="text center">Listado de citas </h1>
+    {% if user.username == "admin" %}
     <a href='{%url "gestion:cita_create"%}' class="btn btn-outline-success">Nueva cita</a>
+    {% endif %}
   <table class="table">
   <thead>
     <tr>

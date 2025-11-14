@@ -12,6 +12,7 @@
     <!-- Contenedor flex para las tarjetas -->
     <div class="d-flex justify-content-center gap-4 flex-wrap">
         <!-- Tarjeta de Pacientes -->
+         {% if user.username == "admin" %}
         <div class="card dashboard-card" style="width: 18rem;">
             <div class="card-body text-center">
                 <div class="card-icon mb-3">
@@ -52,6 +53,21 @@
                 </a>
             </div>
         </div>
+        {% else %}
+        <!-- Tarjeta de Mis Citas -->
+          <div class="card dashboard-card" style="width: 18rem;">
+                <div class="card-body text-center">
+                    <div class="card-icon mb-3">
+                        <img src="{% static 'core/img/cita.png' %}" alt="Icono Mis Citas">
+                    </div>
+                    <h5 class="card-title">Mis Citas</h5>
+                    <p class="card-text">Consulta las citas que tienes programadas.</p>
+                    <a href="{% url 'gestion:mis_citas' %}" class="btn btn-primary w-100">
+                        <i class="fas fa-calendar me-2"></i>Ver mis citas
+                    </a>
+                </div>
+            </div>
+        {% endif %}
     </div>
 </div>
 {% endblock %}
